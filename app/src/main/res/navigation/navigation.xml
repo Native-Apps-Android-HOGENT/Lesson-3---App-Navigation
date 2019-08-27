@@ -9,7 +9,7 @@
         android:id="@+id/nav_fragment_title"
         android:name="com.example.android.navigation.TitleFragment"
         android:label="Android Trivia"
-        tools:layout="@layout/fragment_title" >
+        tools:layout="@layout/fragment_title">
         <action
             android:id="@+id/action_fragment_title_to_fragment_game"
             app:destination="@id/nav_fragment_game" />
@@ -18,7 +18,7 @@
         android:id="@+id/nav_fragment_game"
         android:name="com.example.android.navigation.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" >
+        tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_nav_fragment_game_to_nav_fragment_gameOver"
             app:destination="@id/nav_fragment_gameOver"
@@ -34,7 +34,7 @@
         android:id="@+id/nav_fragment_gameWon"
         android:name="com.example.android.navigation.GameWonFragment"
         android:label="fragment_game_won"
-        tools:layout="@layout/fragment_game_won" >
+        tools:layout="@layout/fragment_game_won">
         <action
             android:id="@+id/action_nav_fragment_gameWon_to_nav_fragment_game"
             app:destination="@id/nav_fragment_game"
@@ -45,11 +45,16 @@
         android:id="@+id/nav_fragment_gameOver"
         android:name="com.example.android.navigation.GameOverFragment"
         android:label="fragment_game_over"
-        tools:layout="@layout/fragment_game_over" >
+        tools:layout="@layout/fragment_game_over">
         <action
             android:id="@+id/action_nav_fragment_gameOver_to_nav_fragment_game"
             app:destination="@id/nav_fragment_game"
             app:popUpTo="@+id/nav_fragment_title"
             app:popUpToInclusive="false" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_fragment_about"
+        android:name="com.example.android.navigation.AboutFragment"
+        android:label="@string/title_about_trivia"
+        tools:layout="@layout/fragment_about" />
 </navigation>

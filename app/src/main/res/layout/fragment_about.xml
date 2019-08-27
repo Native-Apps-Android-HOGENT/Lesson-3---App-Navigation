@@ -23,6 +23,7 @@
     tools:context="com.example.android.navigation.AboutFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
