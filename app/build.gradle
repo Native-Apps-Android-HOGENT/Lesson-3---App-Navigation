@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
+apply plugin: "com.android.application"
 
-apply plugin: 'kotlin-android'
+apply plugin: "kotlin-android"
 
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+apply plugin: "kotlin-android-extensions"
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 28
@@ -27,7 +29,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId 'com.example.android.navigation'
+        applicationId "com.example.android.navigation"
         minSdkVersion 19
         targetSdkVersion 28
         vectorDrawables.useSupportLibrary = true
@@ -38,7 +40,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     productFlavors {
@@ -47,11 +49,11 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-    buildToolsVersion = '28.0.3'
+    buildToolsVersion = "28.0.3"
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ["*.jar"], dir: "libs")
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
 
@@ -63,7 +65,7 @@ dependencies {
 
     // Material Design
     implementation "com.google.android.material:material:$version_material"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
