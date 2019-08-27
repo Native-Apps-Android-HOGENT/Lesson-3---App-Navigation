@@ -22,7 +22,7 @@
     tools:context="com.example.android.navigation.TitleFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleConstraint"
+        android:id="@+id/constraint_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
