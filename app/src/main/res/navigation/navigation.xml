@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_title">
         <action
             android:id="@+id/action_fragment_title_to_fragment_game"
-            app:destination="@id/nav_fragment_game" />
+            app:destination="@id/nav_fragment_game"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/nav_fragment_game"
@@ -22,11 +26,19 @@
         <action
             android:id="@+id/action_nav_fragment_game_to_nav_fragment_gameOver"
             app:destination="@id/nav_fragment_gameOver"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             app:popUpTo="@+id/nav_fragment_game"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_nav_fragment_game_to_nav_fragment_gameWon"
             app:destination="@id/nav_fragment_gameWon"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@+id/nav_fragment_game"
             app:popUpToInclusive="true" />
     </fragment>
@@ -38,6 +50,10 @@
         <action
             android:id="@+id/action_nav_fragment_gameWon_to_nav_fragment_game"
             app:destination="@id/nav_fragment_game"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@+id/nav_fragment_title"
             app:popUpToInclusive="false" />
         <argument
@@ -55,6 +71,10 @@
         <action
             android:id="@+id/action_nav_fragment_gameOver_to_nav_fragment_game"
             app:destination="@id/nav_fragment_game"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@+id/nav_fragment_title"
             app:popUpToInclusive="false" />
     </fragment>
