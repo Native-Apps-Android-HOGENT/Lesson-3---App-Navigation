@@ -69,6 +69,12 @@ class MainActivityTest {
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
         onView(withId(R.id.constraint_title)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun gameScreen_slideNavDrawerOpen_doesNotOpen() {
+        onView(withId(R.id.playButton)).perform(click())
+        onView(withId(R.id.drawerLayout)).perform(DrawerActions.open())
+        // The game screen remains open
+        onView(withId(R.id.scrollview_game)).check(matches(isDisplayed()))
+    }
 }
-
-

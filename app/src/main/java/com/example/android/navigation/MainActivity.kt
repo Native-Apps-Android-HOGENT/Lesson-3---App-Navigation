@@ -20,6 +20,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
@@ -38,6 +40,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.navHost_main)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
+
+        // prevent nav gesture if not on start destination
+        navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _ ->
+            if (nd.id == nc.graph.startDestination) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
