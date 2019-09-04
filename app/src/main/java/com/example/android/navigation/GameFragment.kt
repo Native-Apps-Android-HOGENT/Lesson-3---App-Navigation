@@ -35,7 +35,7 @@ class GameFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate<FragmentGameBinding>(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game, container, false)
 
 
