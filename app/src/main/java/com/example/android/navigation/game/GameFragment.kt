@@ -20,16 +20,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import com.example.android.navigation.GameFragmentDirections
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
 
+
+    private lateinit var gameViewModel: GameViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,9 +40,14 @@ class GameFragment : Fragment() {
                 inflater, R.layout.fragment_game, container, false)
 
 
+        //Generate the viewModel
+
 
         // Bind this fragment class to the layout
-        binding.game = this
+        gameViewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+        binding.gameViewModel = gameViewModel
+
+        binding.setLifecycleOwner (this)
 
         // Set the onClickListener for the submitButton
         binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")

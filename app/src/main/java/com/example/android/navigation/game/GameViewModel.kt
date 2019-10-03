@@ -4,8 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.findNavController
-import com.example.android.navigation.GameFragmentDirections
+
 import com.example.android.navigation.R
 
 class GameViewModel: ViewModel(){
@@ -18,9 +17,14 @@ class GameViewModel: ViewModel(){
     get() = _currentQuestion
 
     /**
-     * The list with possible answers
+     * The list with possible answers of the current question
      */
-    lateinit var answers: MutableList<String>
+    private val _answers =  MutableLiveData<MutableList<String>>()
+    val answers : LiveData<MutableList<String>>
+    get() = _answers
+
+
+    private val gameEvent = SingleLiveEvent<Int>()
 
     /**
      * The index of the current question.
@@ -63,7 +67,7 @@ class GameViewModel: ViewModel(){
     /**
      * Checks whether the answer  provided by the user is correct.
      */
-    fun checkIfCorrectAnswer( checkedId: Int) :Int{
+    fun checkIfCorrectAnswer( checkedId: Int){
 
         // Do nothing if nothing is checked (id == -1)
         if (-1 != checkedId) {
@@ -75,27 +79,27 @@ class GameViewModel: ViewModel(){
             }
             // The first answer in the original question is always the correct one, so if our
             // answer matches, we have the correct answer.
-            if (answers[answerIndex] == _currentQuestion.value!!.answers[0]) {
+            if (_answers.value!![answerIndex] == _currentQuestion.value!!.answers[0]) {
                 questionIndex++
                 // Advance to the next question
                 if (questionIndex < numQuestions) {
                     _currentQuestion.value = questions[questionIndex]
                     setQuestion()
                     //binding.invalidateAll()
-                    return CORRECT
+                    //return CORRECT
                 } else {
                     // We've won!  Navigate to the gameWonFragment.
                     //view.findNavController().navigate(
                       //      GameFragmentDirections.actionNavFragmentGameToNavFragmentGameWon(numQuestions, questionIndex))
-                    return GAME_FINISHED
+                    //return GAME_FINISHED
                 }
             } else {
                 // Game over! A wrong answer sends us to the gameOverFragment.
                 //view.findNavController().navigate(GameFragmentDirections.actionNavFragmentGameToNavFragmentGameOver())
-                return INCORRECT
+                //return INCORRECT
             }
         }
-        return DO_NOTHING
+        //return DO_NOTHING
 
     }
 
@@ -113,9 +117,9 @@ class GameViewModel: ViewModel(){
     private fun setQuestion() {
         _currentQuestion.value= questions[questionIndex]
         // randomize the answers into a copy of the array
-        answers = currentQuestion.value!!.answers.toMutableList()
+        _answers.value = currentQuestion.value!!.answers.toMutableList()
         // and shuffle them
-        answers.shuffle()
+        answers.value!!.shuffle()
         //(activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_android_trivia_question, questionIndex + 1, numQuestions)
     }
 
