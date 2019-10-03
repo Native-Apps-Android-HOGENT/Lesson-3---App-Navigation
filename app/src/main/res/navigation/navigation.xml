@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_fragment_game"
-        android:name="com.example.android.navigation.GameFragment"
+        android:name="com.example.android.navigation.game.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game">
         <action
