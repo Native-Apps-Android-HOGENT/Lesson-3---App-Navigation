@@ -17,15 +17,20 @@
 package com.example.android.navigation.game
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentGameBinding
+import com.google.android.material.snackbar.Snackbar
 
 class GameFragment : Fragment() {
 
@@ -47,13 +52,35 @@ class GameFragment : Fragment() {
         gameViewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
         binding.gameViewModel = gameViewModel
 
-        binding.setLifecycleOwner (this)
+        binding.setLifecycleOwner(this)
 
         // Set the onClickListener for the submitButton
         binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
         { view: View ->
             val checkedId = binding.questionRadioGroup.checkedRadioButtonId
+            gameViewModel.checkIfCorrectAnswer(checkedId)
         }
+
+        gameViewModel.command.observe(this, Observer {
+            when (it) {
+                is BaseCommand.Error -> {
+                    Log.i("H", "Error")
+                    this.findNavController().navigate(GameFragmentDirections.actionNavFragmentGameToNavFragmentGameOver())
+
+                }
+                is BaseCommand.Finish -> {
+                    Log.i("H", "Finish")
+                    this.findNavController().navigate(
+                            GameFragmentDirections.actionNavFragmentGameToNavFragmentGameWon(gameViewModel.numQuestions,
+                                    gameViewModel.questionIndex))
+                }
+                is BaseCommand.Correct -> {
+
+                    Log.i("H", "Correct")
+
+                }
+            }
+        })
         return binding.root
     }
 

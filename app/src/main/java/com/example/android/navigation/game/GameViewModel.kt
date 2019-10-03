@@ -24,12 +24,12 @@ class GameViewModel: ViewModel(){
     get() = _answers
 
 
-    private val gameEvent = SingleLiveEvent<Int>()
+    val command = SingleLiveEvent<BaseCommand>()
 
     /**
      * The index of the current question.
      */
-    private var questionIndex = 0
+     var questionIndex = 0
 
     // The first answer is the correct one.  We randomize the answers before showing the text.
     // All questions must have four answers.  We'd want these to contain references to string
@@ -56,7 +56,7 @@ class GameViewModel: ViewModel(){
             Question(text = "Mark a layout for Data Binding?",
                     answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
     )
-    private val numQuestions = Math.min((questions.size + 1) / 2, 3)
+     val numQuestions = Math.min((questions.size + 1) / 2, 3)
 
     init {
         // Shuffles the questions and sets the question index to the first question.
@@ -86,15 +86,17 @@ class GameViewModel: ViewModel(){
                     _currentQuestion.value = questions[questionIndex]
                     setQuestion()
                     //binding.invalidateAll()
-                    //return CORRECT
+                    command.value = BaseCommand.Correct("Answer is correct")
                 } else {
                     // We've won!  Navigate to the gameWonFragment.
+                    command.value = BaseCommand.Finish("You've won")
                     //view.findNavController().navigate(
                       //      GameFragmentDirections.actionNavFragmentGameToNavFragmentGameWon(numQuestions, questionIndex))
                     //return GAME_FINISHED
                 }
             } else {
                 // Game over! A wrong answer sends us to the gameOverFragment.
+                command.value = BaseCommand.Error("Error and finish the game")
                 //view.findNavController().navigate(GameFragmentDirections.actionNavFragmentGameToNavFragmentGameOver())
                 //return INCORRECT
             }
