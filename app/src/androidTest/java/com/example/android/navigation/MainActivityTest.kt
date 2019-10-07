@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 class MainActivityTest {
 
     @get:Rule
-    var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    var activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun onStartUp_showCorrectFragment() {

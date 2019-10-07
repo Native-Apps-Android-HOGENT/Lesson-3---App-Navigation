@@ -38,7 +38,6 @@ class GameFragment : Fragment() {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game, container, false)
 
-
         // Bind this fragment class to the layout
         binding.game = this
 

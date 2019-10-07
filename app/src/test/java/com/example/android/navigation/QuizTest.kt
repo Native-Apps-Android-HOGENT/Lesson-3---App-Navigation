@@ -29,9 +29,10 @@ class QuizTest {
     }
 
     @Test
-    fun  quiz_nextQuestion_showsDifferentAnswers() {
+    fun quiz_nextQuestion_showsDifferentAnswers() {
         // Arrange
         val originalAnswers = quiz.answers
+
         // Act
         quiz.nextQuestion()
 
@@ -41,9 +42,12 @@ class QuizTest {
 
     @Test
     fun quiz_allQuestionsDone() {
+        //Arrange
         repeat(quiz.numberOfQuestions) {
             quiz.nextQuestion()
         }
+
+        //Assert
         assertTrue(quiz.allQuestionsDone)
     }
 }

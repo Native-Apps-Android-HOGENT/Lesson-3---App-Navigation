@@ -6,6 +6,9 @@ class Quiz {
 
     data class Question(val text: String, val answers: List<String>)
 
+    /**
+     * Indicates whether or not every question in this quiz has been answered.
+     */
     val allQuestionsDone: Boolean
         get() = currentQuestionIndex == numberOfQuestions
 
@@ -35,11 +38,17 @@ class Quiz {
                     answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
     )
 
+    /**
+     * The answers to the question currently being shown.
+     */
     lateinit var answers: MutableList<String>
 
     val currentQuestion: Question
         get() = questions[currentQuestionIndex]
 
+    /**
+     * Indicates how many questions have been answered so far.
+     */
     // Start at -1 so we can use nextQuestion during initialization
     var currentQuestionIndex = -1
         private set
@@ -51,6 +60,10 @@ class Quiz {
         nextQuestion()
     }
 
+    /**
+     * Sets the [currentQuestion] to the next available question.
+     * If all questions have been answered, this does nothing.
+     */
     fun nextQuestion() {
         if (!allQuestionsDone) {
             currentQuestionIndex++
@@ -65,7 +78,6 @@ class Quiz {
         // The first answer in the original question is always the correct one, so if our
         // answer matches, we have the correct answer.
         return (answers[chosenAnswerIndex] == currentQuestion.answers[0])
-
     }
 
 }
