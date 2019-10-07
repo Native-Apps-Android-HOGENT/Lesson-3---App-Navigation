@@ -50,16 +50,60 @@ date: October 2019
 
 ## How?
 
-[Master-Detail views with Navigation Components](https://proandroiddev.com/master-detail-views-with-navigation-components-a20405f31974) by Lara Martin
-[https://github.com/Native-Apps-Android-HOGENT/Lesson-3-Extra-Master-Detail-Layout](https://github.com/Native-Apps-Android-HOGENT/Lesson-3-Extra-Master-Detail-Layout)
+* [Master-Detail views with Navigation Components](https://proandroiddev.com/master-detail-views-with-navigation-components-a20405f31974) by Lara Martin
+* [https://github.com/Native-Apps-Android-HOGENT/Lesson-3-Extra-Master-Detail-Layout](https://github.com/Native-Apps-Android-HOGENT/Lesson-3-Extra-Master-Detail-Layout)
 
 ## Components of a Dual Pane Layout
 
-* Two layout files for each layout (different qualifiers)
-* Two NavControllers
-* Code that builds layout differently depending on current configuration
+### Two layout files for each layout (different qualifiers)
+![Resource folder structure when using qualifiers](assets/img/qualifiers.PNG)
 
+### Two NavControllers
 
+* One for the main navigation (as normal)
+* One for screens using a dual pane layout
 
+### Code that builds layout differently depending on current configuration
+```
+if (context!!.resources.getBoolean(R.bool.isTablet)) {
+        displayMasterDetailLayout()
+    } else {
+        displaySingleLayout()
+    }
+}
+```
 
+---
+
+```
+
+private fun displaySingleLayout() {
+    binding.profileLayout.accountTextView.setOnClickListener(
+        Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_account)
+    )
+    binding.profileLayout.notificationsTextView.setOnClickListener(
+        Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_notifications)
+    )
+    binding.profileLayout.settingsTextView.setOnClickListener(
+        Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_settings)
+    )
+}
+
+private fun displayMasterDetailLayout() {
+    val detailNavHost =
+        childFragmentManager.findFragmentById(R.id.profile_nav_container) as NavHostFragment
+
+    binding.profileLayout.accountTextView.setOnClickListener {
+        detailNavHost.navController.navigate(R.id.fragment_account)
+    }
+
+    binding.profileLayout.notificationsTextView.setOnClickListener {
+        detailNavHost.navController.navigate(R.id.fragment_notifications)
+    }
+
+    binding.profileLayout.settingsTextView.setOnClickListener {
+        detailNavHost.navController.navigate(R.id.fragment_settings)
+    }
+}
+```
 
