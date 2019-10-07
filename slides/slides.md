@@ -41,8 +41,8 @@ date: October 2019
 # Changes from course solution
 
 * [https://github.com/Native-Apps-Android-HOGENT/Lesson-3-App-Navigation](https://github.com/Native-Apps-Android-HOGENT/Lesson-3-App-Navigation)
-⋅⋅* Espresso Tests
-⋅⋅* IDs in layout in accordance with naming conventions
+    * Espresso Tests
+    * IDs in layout in accordance with naming conventions
 
 # Extra: Dual Pane layouts
 
