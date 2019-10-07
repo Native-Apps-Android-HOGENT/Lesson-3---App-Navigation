@@ -61,7 +61,10 @@ date: October 2019
 ### Two NavControllers
 
 * One for the main navigation (as normal)
+    * _Navigate_ to correct Fragment
 * One for screens using a dual pane layout
+    * Only used when in dual pane mode (on tablets)
+    * _Show_ correct Fragment
 
 ### Code that builds layout differently depending on current configuration
 ```
