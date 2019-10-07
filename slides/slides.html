@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jens Buysse, Harm De Weirdt">
+  <title>Lesson 3 - App Navigation</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./reveal.js/css/reset.css">
+  <link rel="stylesheet" href="./reveal.js/css/reveal.css">
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="./reveal.js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? './reveal.js/css/print/pdf.css' : './reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="./reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Lesson 3 - App Navigation</h1>
+  <p class="author">Jens Buysse, Harm De Weirdt</p>
+  <p class="date">October 2019</p>
+</section>
+
+<section id="questions-about-course-videos" class="slide level1">
+<h1>Questions about course videos?</h1>
+</section>
+<section id="lesson-contents" class="slide level1">
+<h1>Lesson contents</h1>
+</section>
+<section class="slide level1">
+
+<h2 id="navigation-graph">Navigation Graph</h2>
+<p><img data-src="assets/img/navigation_graph.PNG" /></p>
+</section>
+<section class="slide level1">
+
+<h2 id="safeargs-when-fragments-need-arguments">SafeArgs: when Fragments need arguments</h2>
+<pre><code>&lt;fragment
+    android:id=&quot;@+id/nav_fragment_gameWon&quot;
+    android:name=&quot;com.example.android.navigation.GameWonFragment&quot;
+    android:label=&quot;fragment_game_won&quot;
+    tools:layout=&quot;@layout/fragment_game_won&quot;&gt;
+    &lt;action
+        android:id=&quot;@+id/action_nav_fragment_gameWon_to_nav_fragment_game&quot;
+        app:destination=&quot;@id/nav_fragment_game&quot;
+        app:enterAnim=&quot;@anim/slide_in_left&quot;
+        app:exitAnim=&quot;@anim/slide_out_right&quot;
+        app:popEnterAnim=&quot;@anim/slide_in_right&quot;
+        app:popExitAnim=&quot;@anim/slide_out_left&quot;
+        app:popUpTo=&quot;@+id/nav_fragment_title&quot;
+        app:popUpToInclusive=&quot;false&quot; /&gt;
+    &lt;argument
+        android:name=&quot;numQuestions&quot;
+        app:argType=&quot;integer&quot; /&gt;
+    &lt;argument
+        android:name=&quot;numCorrect&quot;
+        app:argType=&quot;integer&quot; /&gt;
+&lt;/fragment&gt;</code></pre>
+</section>
+<section id="changes-from-course-solution" class="slide level1">
+<h1>Changes from course solution</h1>
+<ul>
+<li><a href="https://github.com/Native-Apps-Android-HOGENT/Lesson-3-App-Navigation">https://github.com/Native-Apps-Android-HOGENT/Lesson-3-App-Navigation</a>
+<ul>
+<li>Espresso Tests</li>
+<li><h2 id="respect-for-naming-conventions">Respect for naming conventions</h2></li>
+</ul></li>
+</ul>
+</section>
+<section id="dual-pane-layouts" class="slide level1">
+<h1>Dual Pane layouts</h1>
+<p><img data-src="assets/img/dualpane.jpg" /></p>
+</section>
+<section class="slide level1">
+
+<h2 id="how">How?</h2>
+<ul>
+<li><a href="https://proandroiddev.com/master-detail-views-with-navigation-components-a20405f31974">Master-Detail views with Navigation Components</a> by Lara Martin</li>
+<li><a href="https://github.com/Native-Apps-Android-HOGENT/Lesson-3-Extra-Master-Detail-Layout">https://github.com/Native-Apps-Android-HOGENT/Lesson-3-Extra-Master-Detail-Layout</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="components-of-a-dual-pane-layout">Components of a Dual Pane Layout</h2>
+</section>
+<section class="slide level1">
+
+<h3 id="two-layout-files-for-each-layout-different-qualifiers">Two layout files for each layout (different qualifiers)</h3>
+<p><img data-src="assets/img/qualifiers.PNG" /></p>
+</section>
+<section class="slide level1">
+
+<h3 id="two-navcontrollers">Two NavControllers</h3>
+<ul>
+<li>One for the main navigation (as normal)
+<ul>
+<li><em>Navigate</em> to correct Fragment</li>
+</ul></li>
+<li>One for screens using a dual pane layout
+<ul>
+<li><em>Show</em> correct Fragment</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="code-that-builds-layout-differently-depending-on-current-configuration">Code that builds layout differently depending on current configuration</h3>
+<pre><code>if (context!!.resources.getBoolean(R.bool.isTablet)) {
+        displayMasterDetailLayout()
+    } else {
+        displaySingleLayout()
+    }
+}</code></pre>
+</section>
+<section class="slide level1">
+
+<pre><code>private fun displaySingleLayout() {
+    binding.profileLayout.accountTextView.setOnClickListener(
+        Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_account)
+    )
+    binding.profileLayout.notificationsTextView.setOnClickListener(
+        Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_notifications)
+    )
+    binding.profileLayout.settingsTextView.setOnClickListener(
+Navigation.createNavigateOnClickListener(R.id.action_profile_fragment_to_fragment_settings)
+    )
+}</code></pre>
+</section>
+<section class="slide level1">
+
+<pre><code>private fun displayMasterDetailLayout() {
+    val detailNavHost =
+        childFragmentManager.findFragmentById(R.id.profile_nav_container) as NavHostFragment
+
+    binding.profileLayout.accountTextView.setOnClickListener {
+        detailNavHost.navController.navigate(R.id.fragment_account)
+    }
+
+    binding.profileLayout.notificationsTextView.setOnClickListener {
+        detailNavHost.navController.navigate(R.id.fragment_notifications)
+    }
+
+    binding.profileLayout.settingsTextView.setOnClickListener {
+        detailNavHost.navController.navigate(R.id.fragment_settings)
+    }
+}</code></pre>
+</section>
+<section id="exercise-refactor-the-quiz-app" class="slide level1">
+<h1>Exercise: refactor the Quiz app</h1>
+<p>Currently no unit tests can be written, even though there is plenty of business logic.</p>
+<p>Refactor the app so that all business logic is moved out of the Fragments.</p>
+<p><em>TDD!</em> First write tests as what you expect your refactor to do, then write the code.</p>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: './reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: './reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
