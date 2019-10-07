@@ -112,8 +112,9 @@ private fun displayMasterDetailLayout() {
 
 # Exercise: refactor the Quiz app
 
-Currently no unit tests can be written, even though there is plenty of business logic in the app.
+Currently no unit tests can be written, even though there is plenty of business logic.
+
 Refactor the app so that all business logic is moved out of the Fragments. 
 
-TDD! First write tests as what you expect your refactor to do, then write the code. 
+*TDD!* First write tests as what you expect your refactor to do, then write the code. 
 
