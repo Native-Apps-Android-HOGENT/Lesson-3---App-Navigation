@@ -31,6 +31,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentGameBinding
 import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 
 class GameFragment : Fragment() {
 
@@ -43,7 +44,7 @@ class GameFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentGameBinding>(
                 inflater, R.layout.fragment_game, container, false)
-        
+
 
         gameViewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
         binding.gameViewModel = gameViewModel
@@ -59,20 +60,18 @@ class GameFragment : Fragment() {
         gameViewModel.command.observe(this, Observer {
             when (it) {
                 is BaseCommand.Error -> {
-                    Log.i("H", "Error")
+                    Timber.i("Error")
                     this.findNavController().navigate(GameFragmentDirections.actionNavFragmentGameToNavFragmentGameOver())
 
                 }
                 is BaseCommand.Finish -> {
-                    Log.i("H", "Finish")
+                    Timber.i("Finished")
                     this.findNavController().navigate(
                             GameFragmentDirections.actionNavFragmentGameToNavFragmentGameWon(gameViewModel.numQuestions,
                                     gameViewModel.questionIndex))
                 }
                 is BaseCommand.Correct -> {
-
-                    Log.i("H", "Correct")
-
+                    Timber.i("Correct")
                 }
             }
         })

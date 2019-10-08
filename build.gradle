@@ -28,6 +28,8 @@ buildscript {
         version_junit = "1.1.1"
         version_testrunner = "1.2.0"
         version_testrules = "1.2.0"
+
+        version_timber="4.7.1"
     }
 
     repositories {
