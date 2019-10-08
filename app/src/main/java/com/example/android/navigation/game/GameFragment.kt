@@ -43,20 +43,15 @@ class GameFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentGameBinding>(
                 inflater, R.layout.fragment_game, container, false)
+        
 
-
-        //Generate the viewModel
-
-
-        // Bind this fragment class to the layout
         gameViewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
         binding.gameViewModel = gameViewModel
 
         binding.setLifecycleOwner(this)
 
         // Set the onClickListener for the submitButton
-        binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
-        { view: View ->
+        binding.submitButton.setOnClickListener { view: View ->
             val checkedId = binding.questionRadioGroup.checkedRadioButtonId
             gameViewModel.checkIfCorrectAnswer(checkedId)
         }
